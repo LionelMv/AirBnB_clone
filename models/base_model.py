@@ -18,9 +18,8 @@ class BaseModel:
         """
         if kwargs:
             for k, v in kwargs.items():
-                if k in ['created_at', 'updated_at']:
-                    setattr(self, k,
-                            datetime.strptime(v, '%Y-%m-%dT%H:%M:%S.%f'))
+                if k == "created_at" or k == "updated_at":
+                    setattr(self, k, datetime.fromisoformat(v))
                 elif k != '__class__':
                     setattr(self, k, v)
         else:
@@ -45,5 +44,3 @@ class BaseModel:
         dic["updated_at"] = self.updated_at.isoformat()
         dic["created_at"] = self.created_at.isoformat()
         return dic
-
-    # tracking branch changes.

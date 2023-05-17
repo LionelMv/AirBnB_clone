@@ -24,15 +24,14 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, line):
-        commands = line.split(" ")
-        if commands[0] == "":
+        if len(line) == 0:
             print("** class name missing **")
-        elif commands[0] not in self.__valid_classes:
+        elif line not in HBNBCommand.__valid_classes:
             print("** class doesn't exist **")
         else:
-            if commands[0] in self.__valid_classes:
-                x = BaseModel()
-
+            obj = eval(line)()
+            obj.save()
+            print(obj.id)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""contains the entry point of the command intepreter"""
+"""Contains the entry point of the command intepreter"""
 
 
 import cmd
@@ -10,7 +10,7 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     """class definition"""
     prompt = "(hbnb)"
-    __valid_classes = ['BaseModel']
+    valid_classes = ['BaseModel']
 
     def do_quit(self, line):
         """Quit command to exit the program"""
@@ -27,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, line):
         if len(line) == 0:
             print("** class name missing **")
-        elif line not in HBNBCommand.__valid_classes:
+        elif line not in HBNBCommand.valid_classes:
             print("** class doesn't exist **")
         else:
             obj = eval(line)()
@@ -42,7 +42,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             args = line.split()
             objdict = storage.all()
-            if args[0] not in HBNBCommand.__valid_classes:
+            if args[0] not in HBNBCommand.valid_classes:
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
@@ -61,7 +61,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             args = line.split()
             objdict = storage.all()
-            if args[0] not in HBNBCommand.classes:
+            if args[0] not in HBNBCommand.valid_classes:
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
@@ -76,19 +76,20 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         """Prints string representation of all instances.
         """
-        # do_all(BaseModel)
+        new_list = []
         if line != "":
-            args = line.split()
-            if args[0] not in HBNBCommand.classes:
+            if line not in HBNBCommand.valid_classes:
                 print("** class doesn't exist **")
             else:
-                nl = [str(obj) for key, obj in storage.all().items()
-                      # if __class__.__name__ == args[0]
-                      if type(obj).__name__ == args[0]]
-                      # if obj.__class__.__name__ == args[0]
-                print(nl)
+                new_list = [str(obj) for obj in storage.all().values()
+                      if type(obj).__name__ == line]
+                # if __class__.__name__ == args[0]
+                # if obj.__class__.__name__ == args[0]
+                # new_list = [str(obj) for k, obj in storage.all().items()
+                            # if k.split(".")[0] == line[0]]
+                print(new_list)
         else:
-            new_list = [str(obj) for key, obj in storage.all().items()]
+            new_list = [str(obj) for obj in storage.all().values()]
             print(new_list)
 
     def do_update(self, line):
@@ -102,7 +103,7 @@ class HBNBCommand(cmd.Cmd):
             objdict[key].save()
         elif len(args) == 0:
             print("** class name missing **")
-        elif args[0] not in HBNBCommand.classes:
+        elif args[0] not in HBNBCommand.valid_classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")

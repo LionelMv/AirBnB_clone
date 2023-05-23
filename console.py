@@ -29,7 +29,7 @@ class HBNBCommand(cmd.Cmd):
         elif line not in HBNBCommand.valid_classes:
             print("** class doesn't exist **")
         else:
-            obj = eval(line)
+            obj = eval(line)()
             obj.save()
             print(obj.id)
 

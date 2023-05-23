@@ -84,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 nl = [str(obj) for key, obj in storage.all().items()
                       # if __class__.__name__ == args[0]
-                      if type(obj).__name__ == args[0]
+                      if type(obj).__name__ == args[0]]
                       # if obj.__class__.__name__ == args[0]
                 print(nl)
         else:

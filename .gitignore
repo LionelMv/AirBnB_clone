@@ -2,3 +2,4 @@ case_files
 models/__pycache__
 models/engine/__pycache__
 file.json
+web_static/W3C-Validator

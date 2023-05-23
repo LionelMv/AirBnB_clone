@@ -1,16 +1,22 @@
 #!/usr/bin/python3
 """Contains the entry point of the command intepreter"""
 
-
 import cmd
-from models.base_model import BaseModel
 from models import storage
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
     """class definition"""
     prompt = "(hbnb)"
-    valid_classes = ['BaseModel']
+    valid_classes = ["BaseModel", "User", "State", "City",
+                     "Amenity", "Place", "Review"]
 
     def do_quit(self, line):
         """Quit command to exit the program"""
@@ -80,11 +86,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             else:
                 new_list = [str(obj) for obj in storage.all().values()
-                      if type(obj).__name__ == line]
+                            if type(obj).__name__ == line]
                 # if __class__.__name__ == args[0]
                 # if obj.__class__.__name__ == args[0]
                 # new_list = [str(obj) for k, obj in storage.all().items()
-                            # if k.split(".")[0] == line[0]]
+                # if k.split(".")[0] == line[0]]
                 print(new_list)
         else:
             new_list = [str(obj) for obj in storage.all().values()]
@@ -113,6 +119,7 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
         else:
             print("** value missing **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

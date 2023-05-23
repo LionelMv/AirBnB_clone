@@ -41,17 +41,16 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             args = line.split()
-            objdict = storage.all()
             if args[0] not in HBNBCommand.valid_classes:
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
             else:
                 key = f"{args[0]}.{args[1]}"
-                if key not in objdict:
+                if key not in storage.all():
                     print("** no instance found **")
                 else:
-                    print(objdict[key])
+                    print(storage.all()[key])
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id.
@@ -60,17 +59,16 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             args = line.split()
-            objdict = storage.all()
             if args[0] not in HBNBCommand.valid_classes:
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
             else:
                 key = f"{args[0]}.{args[1]}"
-                if key not in objdict:
+                if key not in storage.all():
                     print("** no instance found **")
                 else:
-                    del objdict[key]
+                    del storage.all()[key]
                     storage.save()
 
     def do_all(self, line):
@@ -94,13 +92,15 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """Update if given exact object, exact attribute"""
-        objdict = storage.all()
         args = line.split()
         if len(args) >= 4:
-            key = "{}.{}".format(args[0], args[1])
-            cast = type(eval(args[3]))
-            # setattr(objdict[key], args[2], cast(arg3))
-            objdict[key].save()
+            key = f"{args[0]}.{args[1]}"
+            # Finding attribute type (casted).
+            arg_type = type(eval(args[3]))
+            arg3 = args[3].strip('"')
+            arg3 = arg3.strip("'")
+            setattr(storage.all()[key], args[2], arg_type(arg3))
+            storage.all()[key].save()
         elif len(args) == 0:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.valid_classes:

@@ -35,12 +35,11 @@ class FileStorage:
             for key, value in new_dict.items():
                 # key = BaseModel.id
                 # e.g. obj = self.class_dict["BaseModel"](**value)
-                obj = self.class_dict[value['__class__']](**value)
-                #self.new(obj)
-                self.__objects[key] = obj
-
-                # class_name = key.split(".")[0]
-                # obj = eval(class_name)(**value)
+                # obj = self.class_dict[value['__class__']](**value)
+                # self.__objects[key] = obj
                 # self.new(obj)
+                class_name = key.split(".")[0]
+                obj = eval(class_name)(**value)
+                self.new(obj)
         except FileNotFoundError:
             pass

@@ -36,6 +36,7 @@ class HBNBCommand(cmd.Cmd):
         elif line not in HBNBCommand.valid_classes:
             print("** class doesn't exist **")
         else:
+            # e.g. obj = BaseModel()
             obj = eval(line)()
             obj.save()
             print(obj.id)

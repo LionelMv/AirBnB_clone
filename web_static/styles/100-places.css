@@ -88,8 +88,14 @@ article h2 {
 .places .reviews h2 {
     font-size: 16px;
     border-bottom: 1px solid #DDDDDD;
-    text-align: left;
     padding-bottom: 10px;
+}
+
+.places .amenities ul {
+    list-style-type: none;
+    padding-top: 20px;
+    padding-left: 60px;
+    width: 75%;
 }
 
 .tv,
@@ -99,13 +105,6 @@ article h2 {
     height: 25px;
     background-position: 5px 50%;
     background-repeat: no-repeat;
-}
-
-.places .amenities ul {
-    list-style-type: none;
-    width: 100%;
-    padding-top: 20px;
-    padding-left: 60px;
 }
 
 .tv {
@@ -121,15 +120,13 @@ article h2 {
 .places .reviews ul,
 .places .reviews li {
     list-style-type: none;
-}
-
-.places .reviews li {
     width: 100%;
+    padding: 0;
 }
 
 .places .reviews h3 {
     font-size: 14px;
-    text-align: left;
+    margin-bottom: -10px
 }
 
 .places .reviews p {
